@@ -1,0 +1,11 @@
+.topInfoLayer {
+    height: 50px;
+    width: 100%;
+    position: fixed;
+    display:flex;
+    align-items: center;
+    top: 0;
+    left: 0;
+    background: rgba(50, 50, 50, 0.8);
+    z-index: 1000; /* 다른 요소들 위에 위치하도록 함 */
+}

@@ -1,8 +1,8 @@
 .buttonContainer {
     padding:10px 20px 10px 20px;
-    background-color: #393939;
+    background: rgba(255, 255, 255, 0.5);
     border-radius: 20px;
-    position: absolute;
+    position: fixed;
     bottom: 20px;
     left: 50%; /* 왼쪽에서 50%의 위치에 배치 */
     transform: translateX(-50%); /* X축으로 -50% 이동하여 가운데 정렬 */
@@ -10,5 +10,4 @@
     flex-direction: row;
     gap: 10px;
     justify-content: center;
-    opacity: 0.8;
 }

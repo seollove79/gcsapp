@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './css/App.module.css'; // CSS 모듈 가져오기
-import Button from '@mui/material/Button';
+import TopInfo from './component/TopInfo';
+import ManageDrone from './component/ManageDrone';
 
 
 
@@ -52,7 +53,7 @@ function App() {
 
     map3d = new window.vw.Map("vmap", mapOptions);
     viewer = window.ws3d.viewer;
-
+    
     // const connectDrone = () => {
     //   let connectType = document.formConnectInfo['connect-type'].value;
     //   let ipaddress = document.formConnectInfo['ipaddress'].value;
@@ -88,7 +89,8 @@ function App() {
   return (
     <div style={{position:"relative", width:"100%", height:"100vh"}}>
       <div id="vmap" style={{ width: "100%", height: "100%", backgroundColor:"red" }}></div>
-      <div className={styles.buttonContainer}><Button variant="contained">드론연결</Button></div>
+      <TopInfo />
+      <ManageDrone />
     </div>
   );
 }
