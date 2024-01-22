@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import styles from './css/App.module.css'; // CSS 모듈 가져오기
 import TopInfo from './component/TopInfo';
 import ManageDrone from './component/ManageDrone';
+import { CommonProvider } from './CommonContext';
 
 
 
 function App() {
 
-  const DRONEKIT_API = "http://cleanjb.iptime.org:8000/";
   const DRONE_CHECK_INTERVAL = 100;
   const DRONE_ALTITUDE_OFFSET = 10;
   const DRONE_MODEL_URL = './scene.gltf'; // 모델경로
@@ -18,7 +18,7 @@ function App() {
   let map3d = null;
   let viewer = null;
 
-  const [droneStatus, setDroneStatus] = useState({
+  const [droneStatus, setDroneStatus] = React.useState({
     longitude: 0, 
     latitude: 0, 
     altitude: 0,
@@ -89,8 +89,10 @@ function App() {
   return (
     <div style={{position:"relative", width:"100%", height:"100vh"}}>
       <div id="vmap" style={{ width: "100%", height: "100%", backgroundColor:"red" }}></div>
-      <TopInfo />
-      <ManageDrone />
+      <CommonProvider>
+        <TopInfo />
+        <ManageDrone />
+      </CommonProvider>
     </div>
   );
 }
