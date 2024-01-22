@@ -8,12 +8,18 @@ import { Grid } from '@mui/material';
 
 const ManageDrone = () => {
     const [connectInfoModalOpen, setConnectInfoModalOpen] = React.useState(false);
+    const [droneMonitors, setDroneMonitors] = React.useState([]); // 드론 목록
+
+    const addDroneMonitor = () => {
+        const newMonitor = <MonitorStatus start='true'/>;
+        setDroneMonitors([...droneMonitors, newMonitor]);
+    };
     return (
         <>
             <div className={styles.rightLayer}>
                 <Grid container>
                     <Grid item>
-                        {/* <MonitorStatus start="false" /> */}
+                        {droneMonitors}
                     </Grid>
                     <Grid item>
                         <div style={{ backgroundColor: "black", padding: "5px", textAlign: "center" }}>
@@ -24,7 +30,7 @@ const ManageDrone = () => {
                     
                 </Grid>
             </div>
-            <ConnectInfoModal open={connectInfoModalOpen} setOpen={setConnectInfoModalOpen} />
+            <ConnectInfoModal open={connectInfoModalOpen} setOpen={setConnectInfoModalOpen} addDroneMonitor={addDroneMonitor} />
 
         </>
     );
