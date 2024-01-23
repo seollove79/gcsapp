@@ -7,7 +7,7 @@ export const CommonContext = createContext();
 export const CommonProvider = ({ children }) => {
     // http://intosky-ok.iptime.org:8000/
     // http://127.0.0.1:8000/
-    const [DRONEKIT_API, setDRONEKIT_API] = useState('http://127.0.0.1:8000/');
+    const [DRONEKIT_API, setDRONEKIT_API] = useState('http://intosky-ok.iptime.org:8000/');
     // const [state2, setState2] = useState('');
     // const [state3, setState3] = useState('');
 
