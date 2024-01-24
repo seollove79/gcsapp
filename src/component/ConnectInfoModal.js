@@ -14,6 +14,7 @@ import { CommonContext } from '../CommonContext';
 const ConnectInfoModal = (props) => {
     const [formData, setFormData] = useState({
         connectType: '',
+        droneId: '',
         ipAddress: '',
         port: ''
     });
@@ -27,6 +28,7 @@ const ConnectInfoModal = (props) => {
     const handleClose = () => {
         setFormData({
             connectType: '',
+            droneId: '',
             ipAddress: '',
             port: ''
         });
@@ -48,8 +50,8 @@ const ConnectInfoModal = (props) => {
         setConnecting(true); // 연결을 시작하기 전에 연결 상태를 '진행 중'으로 설정합니다.
         setError(null); // 이전 오류 상태를 초기화합니다.
 
-        if (!formData.connectType || !formData.ipAddress || !formData.port) {
-            alert("연결방식, IP주소, 포트를 입력해주세요.");
+        if (!formData.connectType || !formData.ipAddress || !formData.port || !formData.droneId) {
+            alert("연결방식, 드론ID, IP주소, 포트를 입력해주세요.");
             setConnecting(false); // 오류 발생 시 연결 중 상태를 해제합니다.
             return;
         }
@@ -62,6 +64,7 @@ const ConnectInfoModal = (props) => {
                 },
                 body: JSON.stringify({
                     "connection_string": formData.connectType + ":" + formData.ipAddress + ":" + formData.port,
+                    "drone_id": formData.droneId,
                 }),
             });
 
@@ -79,7 +82,7 @@ const ConnectInfoModal = (props) => {
 
             if(data.status === "Already Connected") {
                 alert("이미 연결되어 있습니다.");
-                props.addDroneMonitor();
+                props.addDroneMonitor(formData.droneId);
                 handleClose();
             }
 
@@ -134,6 +137,19 @@ const ConnectInfoModal = (props) => {
                                     >
                                         <MenuItem value={"tcp"}>TCP</MenuItem>
                                     </Select>
+                                    <TextField
+                                        name="droneId"
+                                        label="드론 ID"
+                                        id="droneId"
+                                        size="small"
+                                        onChange={handleChange}
+                                        InputProps={{
+                                            style: {
+                                                backgroundColor: 'white',
+                                            },
+                                        }}
+                                        style={{ marginTop: "10px" }}
+                                    />
                                     <TextField
                                         name="ipAddress"
                                         label="IP Address"
