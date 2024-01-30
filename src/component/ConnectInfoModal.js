@@ -77,7 +77,7 @@ const ConnectInfoModal = (props) => {
             if(data.status === "Connected") {
                 alert("드론이 연결되었습니다.");
                 handleClose();
-                props.addDroneMonitor();
+                props.addDroneMonitor(formData.droneId);
             }
 
             if(data.status === "Already Connected") {

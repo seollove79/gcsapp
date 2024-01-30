@@ -1,5 +1,4 @@
 import * as React from 'react';
-import styles from '../css/ManageDrone.module.css'; // CSS 모듈 가져오기
 import { ReactComponent as DroneSvg } from '../images/copter.svg';
 import IconButton from '@mui/material/IconButton';
 import ConnectInfoModal from './ConnectInfoModal';
@@ -12,9 +11,10 @@ const ManageDrone = () => {
     const [droneMonitors, setDroneMonitors] = React.useState([]); // 드론 목록
     const [droneMonitorDetails, setDroneMonitorDtails] = React.useState([]); // 드론 목록
 
+  
     const addDroneMonitor = (droneId) => {
         const newMonitor = <Grid item><MonitorStatus start='true' droneId={droneId}/></Grid>;
-        const newMonitorDetail = <Grid item><MonitorStatusDetail start='true' droneId={droneId} displayValue='false'/></Grid>;
+        const newMonitorDetail = <Grid item><MonitorStatusDetail start='true' droneId={droneId} displayValue='none' /></Grid>;
         setDroneMonitors([...droneMonitors, newMonitor]);
         setDroneMonitorDtails([...droneMonitorDetails, newMonitorDetail]);
     };

@@ -17,10 +17,11 @@ function App() {
 
   let map3d = null;
   let viewer = null;
+  let drone = null;
 
   const [droneStatus, setDroneStatus] = React.useState({
-    longitude: 0, 
-    latitude: 0, 
+    longitude: 0,
+    latitude: 0,
     altitude: 0,
     seaLevelAltitude: 0,
     roll: 0,
@@ -42,18 +43,18 @@ function App() {
       eval(interactionDensity),
       false,
       new window.vw.CameraPosition(
-          new window.vw.CoordZ(126.609375, 37.519120, 1000),
-          new window.vw.Direction(-90, 0, 0)
+        new window.vw.CoordZ(127.112013, 35.839660, 100),
+        new window.vw.Direction(-90, 0, 0)
       ),
       new window.vw.CameraPosition(
-          new window.vw.CoordZ(126.609375, 37.519120, 1000),
-          new window.vw.Direction(0, -90, 0)
+        new window.vw.CoordZ(127.112013, 35.839660, 100),
+        new window.vw.Direction(0, -90, 0)
       )
     );
 
     map3d = new window.vw.Map("vmap", mapOptions);
     viewer = window.ws3d.viewer;
-    
+
     // const connectDrone = () => {
     //   let connectType = document.formConnectInfo['connect-type'].value;
     //   let ipaddress = document.formConnectInfo['ipaddress'].value;
@@ -82,16 +83,17 @@ function App() {
     // };
 
 
+
+
   });
 
-  
 
   return (
-    <div style={{position:"relative", width:"100%", height:"100vh"}}>
-      <div id="vmap" style={{ width: "100%", height: "100%", backgroundColor:"red" }}></div>
+    <div style={{ position: "relative", width: "100%", height: "100vh" }}>
+      <div id="vmap" style={{ width: "100%", height: "100%", backgroundColor: "red" }}></div>
       <CommonProvider>
         <TopInfo />
-        <ManageDrone />
+        <ManageDrone/>
       </CommonProvider>
     </div>
   );
