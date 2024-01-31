@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { CommonContext } from '../CommonContext';
 import { Grid } from '@mui/material';
-import droneModel from '../images/scene.gltf';
 
 const MonitorStatusDetail = (props) => {
     const { DRONEKIT_API } = useContext(CommonContext);
@@ -9,43 +8,41 @@ const MonitorStatusDetail = (props) => {
     const [droneId, setDroneId] = useState(props.droneId); // 드론 아이디
     const [displayValue, setDisplayValue] = useState(props.displayValue);
     const [droneStatus, setDroneStatus] = useState({
-        airSpeed: null,
-        groundSpeed: null,
-        voltage: null,
-        level: null,
-        mode: null,
+        airSpeed: 0,
+        groundSpeed: 0,
+        voltage: "--",
+        level: "--",
+        mode: "--",
         gps: null,
         gpsFix: null,
         armed: null,
         ekf: null,
-        lat: null,
-        lng: null,
-        alt: null,
-        sl_alt: null,
+        lat: 0,
+        lng: 0,
+        alt: 0,
+        slAlt: 0,
+        roll: 0,
+        pitch: 0,
+        yaw: 0,
     });
 
-    const DRONE_CHECK_INTERVAL = 100;
     const DRONE_ALTITUDE_OFFSET = 10;
     const DRONE_MODEL_SCALE = 0.008; // 모델크기
-    const GUIDED_POSITION_HEIGHT = 10; // 가이드 위치 높이
     const DRONE_YAW_OFFSET = 90; // 드론의 YAW 각도 보정값
     let drone = null;
 
 
 
     const viewDrone = (lat, lng, alt, yaw, pitch, roll) => {
-        let controlDensity = "window.vw.DensityType.BASIC";
-        let interactionDensity = "window.vw.DensityType.BASIC";
         let viewer = window.ws3d.viewer;
-
         if (drone != null) {
+            console.log("drone update..");
             let position = window.Cesium.Cartesian3.fromDegrees(lng, lat, alt + DRONE_ALTITUDE_OFFSET);
             let heading = window.Cesium.Math.toRadians(yaw - DRONE_YAW_OFFSET);
             let pitch1 = window.Cesium.Math.toRadians(pitch);
             let roll1 = roll; // 롤 없음
             let hpr = new window.Cesium.HeadingPitchRoll(heading, pitch1, roll1);
             let orientation = window.Cesium.Transforms.headingPitchRollQuaternion(position, hpr);
-            console.log(position);
             drone.position = position;
             drone.orientation = orientation;
         } else {
@@ -157,7 +154,7 @@ const MonitorStatusDetail = (props) => {
                 });
 
                 if (droneId === "drone#01") {
-                    viewDrone(data['Lat'], data['Lng'], data['SL_Alt'], data['Yaw'], data['Pitch'], data['Roll']);
+                    viewDrone();
                 }
             })
             .catch((error) => {
