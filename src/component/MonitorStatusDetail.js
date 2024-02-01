@@ -17,10 +17,10 @@ const MonitorStatusDetail = (props) => {
         gpsFix: null,
         armed: null,
         ekf: null,
-        lat: 0,
-        lng: 0,
-        alt: 0,
-        slAlt: 0,
+        lat: 35.839270,
+        lng: 127.111796,
+        alt: 50,
+        slAlt: 50,
         roll: 0,
         pitch: 0,
         yaw: 0,
@@ -31,25 +31,24 @@ const MonitorStatusDetail = (props) => {
     const DRONE_YAW_OFFSET = 90; // 드론의 YAW 각도 보정값
     let drone = null;
 
-
-
-    const viewDrone = (lat, lng, alt, yaw, pitch, roll) => {
+    const viewDrone = () => {
         let viewer = window.ws3d.viewer;
         if (drone != null) {
             console.log("drone update..");
-            let position = window.Cesium.Cartesian3.fromDegrees(lng, lat, alt + DRONE_ALTITUDE_OFFSET);
-            let heading = window.Cesium.Math.toRadians(yaw - DRONE_YAW_OFFSET);
-            let pitch1 = window.Cesium.Math.toRadians(pitch);
-            let roll1 = roll; // 롤 없음
+            // let position = window.Cesium.Cartesian3.fromDegrees(droneStatus.lng, droneStatus.lat, droneStatus.slAlt + DRONE_ALTITUDE_OFFSET);
+            let position = window.Cesium.Cartesian3.fromDegrees(127.111796, 35.839270, droneStatus.slAlt);
+            let heading = window.Cesium.Math.toRadians(droneStatus.yaw - DRONE_YAW_OFFSET);
+            let pitch1 = window.Cesium.Math.toRadians(droneStatus.pitch);
+            let roll1 = droneStatus.roll; // 롤 없음
             let hpr = new window.Cesium.HeadingPitchRoll(heading, pitch1, roll1);
             let orientation = window.Cesium.Transforms.headingPitchRollQuaternion(position, hpr);
             drone.position = position;
-            drone.orientation = orientation;
+            // drone.orientation = orientation;
         } else {
             console.log("drone add..");
             drone = viewer.entities.add({
                 name: 'Drone',
-                position: window.Cesium.Cartesian3.fromDegrees(lng, lat, 50 + DRONE_ALTITUDE_OFFSET), // 드론의 초기 위치 (경도, 위도, 높이)
+                position: window.Cesium.Cartesian3.fromDegrees(droneStatus.lng, droneStatus.lat, droneStatus.slAlt + DRONE_ALTITUDE_OFFSET), // 드론의 초기 위치 (경도, 위도, 높이)
                 model: {
                     uri: '/scene.gltf',
                     scale: DRONE_MODEL_SCALE
@@ -152,10 +151,6 @@ const MonitorStatusDetail = (props) => {
                     pitch: data['Pitch'],
                     yaw: data['Yaw'],
                 });
-
-                if (droneId === "drone#01") {
-                    viewDrone();
-                }
             })
             .catch((error) => {
                 // console.error("Error:", error);
